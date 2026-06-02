@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
 import StudentCard from "../components/StudentCard";
 
+const API_URL =
+  "https://student-dashboard-backend-lu2v.onrender.com";
+
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [search, setSearch] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
       window.location.href = "/login";
+      return;
     }
 
     fetchStudents();
   }, []);
 
   const fetchStudents = async () => {
-    const response = await fetch("http://localhost:5000/students");
+    const response = await fetch(`${API_URL}/students`);
     const data = await response.json();
     setStudents(data);
   };
@@ -30,7 +35,7 @@ const Dashboard = () => {
       age: Number(age),
     };
 
-    await fetch("http://localhost:5000/students", {
+    await fetch(`${API_URL}/students`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +50,7 @@ const Dashboard = () => {
   };
 
   const removeStudent = async (id) => {
-    await fetch(`http://localhost:5000/students/${id}`, {
+    await fetch(`${API_URL}/students/${id}`, {
       method: "DELETE",
     });
 
@@ -53,14 +58,16 @@ const Dashboard = () => {
   };
 
   const updateStudent = async (id) => {
-    const student = students.find((student) => student._id === id);
+    const student = students.find(
+      (student) => student._id === id,
+    );
 
     const updatedStudent = {
       ...student,
       age: Number(student.age) + 1,
     };
 
-    await fetch(`http://localhost:5000/students/${id}`, {
+    await fetch(`${API_URL}/students/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,33 +80,45 @@ const Dashboard = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6">Student Dashboard</h1>
+      <h1 className="text-4xl font-bold mb-6">
+        Student Dashboard
+      </h1>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-5 rounded-2xl shadow-lg">
-          <h2 className="text-xl font-bold">Total Students</h2>
-
-          <p className="text-4xl mt-2">{students.length}</p>
+          <h2 className="text-xl font-bold">
+            Total Students
+          </h2>
+          <p className="text-4xl mt-2">
+            {students.length}
+          </p>
         </div>
 
         <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-5 rounded-2xl shadow-lg">
           <h2 className="text-xl font-bold">Adults</h2>
-
           <p className="text-4xl mt-2">
-            {students.filter((student) => student.age >= 18).length}
+            {
+              students.filter(
+                (student) => student.age >= 18,
+              ).length
+            }
           </p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-        <h2 className="text-2xl font-bold mb-4">Add Student</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Add Student
+        </h2>
 
         <div className="flex gap-3 flex-wrap">
           <input
             type="text"
             placeholder="Enter Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
             className="border p-3 rounded-lg flex-1"
           />
 
@@ -107,7 +126,9 @@ const Dashboard = () => {
             type="number"
             placeholder="Enter Age"
             value={age}
-            onChange={(e) => setAge(e.target.value)}
+            onChange={(e) =>
+              setAge(e.target.value)
+            }
             className="border p-3 rounded-lg w-40"
           />
 
@@ -124,14 +145,18 @@ const Dashboard = () => {
         type="text"
         placeholder="Search Student..."
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) =>
+          setSearch(e.target.value)
+        }
         className="border p-3 rounded-lg w-full mb-6 shadow-sm"
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {students
           .filter((student) =>
-            student.name.toLowerCase().includes(search.toLowerCase()),
+            student.name
+              .toLowerCase()
+              .includes(search.toLowerCase()),
           )
           .map((student) => (
             <StudentCard
