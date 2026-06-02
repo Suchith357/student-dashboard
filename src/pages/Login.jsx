@@ -1,10 +1,14 @@
 import { useState } from "react";
 
+const API_URL =
+  "https://student-dashboard-backend-lu2v.onrender.com";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleLogin = async () => {
-    const response = await fetch("http://localhost:5000/login", {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,14 +21,22 @@ const Login = () => {
 
     const data = await response.json();
 
-    localStorage.setItem("token", data.token);
-    window.location.href = "/dashboard";
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      window.location.href = "/dashboard";
+    } else {
+      alert(data.message || "Login Failed");
+    }
+
     console.log(data);
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-96">
-        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Login
+        </h1>
 
         <input
           type="email"
