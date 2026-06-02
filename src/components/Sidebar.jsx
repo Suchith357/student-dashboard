@@ -2,64 +2,58 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 min-h-screen bg-slate-900 text-white shadow-2xl">
-
-      <div className="p-6 border-b border-slate-700">
-
-        <h1 className="text-2xl font-bold">
-          🚀 Dashboard
+    <aside className="hidden md:flex flex-col w-64 min-h-screen bg-white border-r border-gray-200">
+      <div className="p-6 border-b border-gray-200">
+        <h1 className="text-xl font-bold text-gray-900">
+          Student Dashboard
         </h1>
 
-        <p className="text-gray-400 text-sm mt-1">
-          Student Management
+        <p className="text-sm text-gray-500 mt-1">
+          Management System
         </p>
-
       </div>
 
-      <div className="p-4">
-
+      <nav className="flex-1 p-4 space-y-2">
         <Link
           to="/"
-          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition mb-2"
+          className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
         >
-          🏠 Home
+          Home
         </Link>
 
         <Link
           to="/dashboard"
-          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition mb-2"
+          className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
         >
-          📊 Dashboard
+          Dashboard
         </Link>
 
         <Link
           to="/about"
-          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition mb-2"
+          className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
         >
-          ℹ️ About
+          About
         </Link>
 
         <Link
           to="/login"
-          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition mb-2"
+          className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
         >
-          🔑 Login
+          Login
         </Link>
 
         <Link
           to="/signup"
-          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition"
+          className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
         >
-          👤 Signup
+          Signup
         </Link>
+      </nav>
 
+      <div className="p-4 border-t border-gray-200 text-sm text-gray-500">
+        Version 1.0
       </div>
-
-      <div className="absolute bottom-6 left-6 text-gray-400 text-sm">
-        Built with React ⚛️
-      </div>
-
-    </div>
+    </aside>
   );
 };
 

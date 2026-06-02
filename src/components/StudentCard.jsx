@@ -1,46 +1,47 @@
-const StudentCard = ({ name, age, removeStudent,updateStudent, id }) => {
-    return (
-  <div className="bg-white p-5 rounded-2xl shadow-lg hover:shadow-xl transition">
+const StudentCard = ({
+  name,
+  age,
+  removeStudent,
+  updateStudent,
+  id,
+}) => {
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-full bg-gray-900 text-white flex items-center justify-center font-semibold">
+            {name[0].toUpperCase()}
+          </div>
 
-    <div className="flex items-center gap-4">
+          <div>
+            <h2 className="font-semibold text-gray-900">
+              {name}
+            </h2>
 
-      <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xl">
-        {name[0]}
+            <p className="text-sm text-gray-500">
+              Age {age}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <h2 className="font-bold text-lg">
-          {name}
-        </h2>
+      <div className="flex flex-col sm:flex-row gap-2 mt-5">
+        <button
+          onClick={() => updateStudent(id)}
+          className="flex-1 bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition"
+        >
+          Update
+        </button>
 
-        <span className="bg-gray-200 px-2 py-1 rounded text-sm">
-          Age: {age}
-        </span>
+        <button
+          onClick={() => removeStudent(id)}
+          className="flex-1 border border-red-300 text-red-600 py-2 rounded-lg hover:bg-red-50 transition"
+        >
+          Delete
+        </button>
       </div>
-
     </div>
-
-    <div className="flex gap-2 mt-4">
-
-      <button
-        onClick={() => updateStudent(id)}
-        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-      >
-        Update
-      </button>
-
-      <button
-        onClick={() => removeStudent(id)}
-        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-      >
-        Delete
-      </button>
-
-    </div>
-
-  </div>
-);
-
+  );
 };
 
 export default StudentCard;
